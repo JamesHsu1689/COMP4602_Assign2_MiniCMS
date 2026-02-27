@@ -1,0 +1,39 @@
+@model MiniCMS.Web.Areas.Admin.Models.ArticleEditViewModel
+
+@{
+    ViewData["Title"] = "Edit Article";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Edit</h1>
+    <a class="btn btn-outline-secondary" asp-area="Admin" asp-controller="Articles" asp-action="Index">Back</a>
+</div>
+
+<form asp-area="Admin" asp-controller="Articles" asp-action="Edit" asp-route-id="@Model.Id" method="post">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Content" class="form-label"></label>
+        <textarea asp-for="Content" class="form-control" rows="10"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+        <div class="form-text">
+            Content will be sanitized server-side on save.
+        </div>
+    </div>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

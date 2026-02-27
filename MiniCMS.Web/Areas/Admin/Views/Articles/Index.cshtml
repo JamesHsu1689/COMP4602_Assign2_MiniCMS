@@ -1,0 +1,118 @@
+@model IEnumerable<MiniCMS.Web.Models.Article>
+
+@{
+    ViewData["Title"] = "Articles";
+}
+
+<div class="container-fluid px-0">
+
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 fw-bold mb-1">Articles</h1>
+            <p class="text-muted mb-0">Manage your CMS content</p>
+        </div>
+
+        <a class="btn btn-primary shadow-sm"
+           asp-area="Admin"
+           asp-controller="Articles"
+           asp-action="Create">
+            <i class="bi bi-plus-lg me-1"></i> New Article
+        </a>
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-0">
+
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Title</th>
+                                <th style="width: 18%;">Updated</th>
+                                <th style="width: 18%;">Created</th>
+                                <th style="width: 18%;" class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var a in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="fw-semibold">@a.Title</div>
+                                    <small class="text-muted">ID: @a.Id</small>
+                                </td>
+
+                                <td>
+                                    <span class="text-muted">
+                                        @a.UpdatedAt.ToString("yyyy-MM-dd HH:mm")
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="text-muted">
+                                        @a.CreatedAt.ToString("yyyy-MM-dd HH:mm")
+                                    </span>
+                                </td>
+
+                                <td class="text-end">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <a class="btn btn-outline-secondary"
+                                           asp-area="Admin"
+                                           asp-controller="Articles"
+                                           asp-action="Details"
+                                           asp-route-id="@a.Id">
+                                            Details
+                                        </a>
+
+                                        <a class="btn btn-outline-primary"
+                                           asp-area="Admin"
+                                           asp-controller="Articles"
+                                           asp-action="Edit"
+                                           asp-route-id="@a.Id">
+                                            Edit
+                                        </a>
+
+                                        <a class="btn btn-outline-danger"
+                                           asp-area="Admin"
+                                           asp-controller="Articles"
+                                           asp-action="Delete"
+                                           asp-route-id="@a.Id">
+                                            Delete
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center py-5">
+                <div class="mb-3">
+                    <span class="display-6 text-muted">📄</span>
+                </div>
+                <h5 class="fw-semibold">No articles yet</h5>
+                <p class="text-muted mb-4">
+                    Start by creating your first article.
+                </p>
+
+                <a class="btn btn-primary"
+                   asp-area="Admin"
+                   asp-controller="Articles"
+                   asp-action="Create">
+                    Create Article
+                </a>
+            </div>
+        </div>
+    }
+
+</div>

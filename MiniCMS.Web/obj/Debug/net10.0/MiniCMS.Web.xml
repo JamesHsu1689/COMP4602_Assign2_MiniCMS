@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MiniCMS.Web</name>
+    </assembly>
+    <members>
+        <member name="T:MiniCMS.Web.Controllers.Api.ArticlesController">
+            <summary>
+            Article management endpoints for the MiniCMS REST API.
+            </summary>
+            <remarks>
+            COMP 4602 Assignment 1: CRUD operations for articles.
+            HTML content is sanitized server-side to reduce script injection risk.
+            </remarks>
+        </member>
+        <member name="M:MiniCMS.Web.Controllers.Api.ArticlesController.GetAll">
+            <summary>
+            Gets all articles.
+            </summary>
+            <remarks>
+            Returns article list items (ID, title, and timestamps). No pagination/search in Assignment 1.
+            </remarks>
+            <returns>A list of articles.</returns>
+        </member>
+        <member name="M:MiniCMS.Web.Controllers.Api.ArticlesController.GetById(System.Int32)">
+            <summary>
+            Gets a single article by ID.
+            </summary>
+            <param name="id">The article ID.</param>
+            <returns>The article details if found; otherwise 404.</returns>
+        </member>
+        <member name="M:MiniCMS.Web.Controllers.Api.ArticlesController.Create(MiniCMS.Web.Dtos.ArticleCreateDto)">
+            <summary>
+            Creates a new article.
+            </summary>
+            <remarks>
+            The server sanitizes HTML content before storing it.
+            </remarks>
+            <param name="input">Title and content for the new article.</param>
+            <returns>The created article (detail view).</returns>
+        </member>
+        <member name="M:MiniCMS.Web.Controllers.Api.ArticlesController.Update(System.Int32,MiniCMS.Web.Dtos.ArticleUpdateDto)">
+            <summary>
+            Updates an existing article.
+            </summary>
+            <remarks>
+            The server sanitizes HTML content before saving updates.
+            </remarks>
+            <param name="id">The article ID.</param>
+            <param name="input">Updated title and content.</param>
+            <returns>204 if updated; 404 if not found; 400 if invalid.</returns>
+        </member>
+        <member name="M:MiniCMS.Web.Controllers.Api.ArticlesController.Delete(System.Int32)">
+            <summary>
+            Deletes an article by ID.
+            </summary>
+            <param name="id">The article ID.</param>
+            <returns>204 if deleted; 404 if not found.</returns>
+        </member>
+        <member name="T:MiniCMS.Web.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:MiniCMS.Web.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MiniCMS.Web.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:MiniCMS.Web.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Program">
+            <summary>
+            Auto-generated public partial Program class for top-level statement apps.
+            </summary>
+        </member>
+    </members>
+</doc>

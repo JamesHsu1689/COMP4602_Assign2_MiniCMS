@@ -1,0 +1,17 @@
+<h1>Admin Dashboard</h1>
+
+<div class="mb-3">
+    <a class="btn btn-primary" asp-area="Admin" asp-controller="Articles" asp-action="Index">Manage Articles</a>
+</div>
+
+@if (User?.Identity?.IsAuthenticated ?? false)
+{
+    <form method="post" action="/Identity/Account/Logout">
+        <input type="hidden" name="returnUrl" value="/" />
+        <button type="submit" class="btn btn-outline-secondary">Logout</button>
+    </form>
+}
+else
+{
+    <a class="btn btn-outline-primary" href="/Identity/Account/Login">Login</a>
+}
