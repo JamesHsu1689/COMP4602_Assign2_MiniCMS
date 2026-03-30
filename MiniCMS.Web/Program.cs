@@ -10,7 +10,11 @@ builder.Services.AddCors(options =>
     options.AddPolicy("BlazorClient", policy =>
     {
         policy
-            .WithOrigins("https://localhost:5209", "http://localhost:5209")
+            .WithOrigins(
+                "https://localhost:7145",
+                "http://localhost:5209",
+                "https://localhost:5209"
+            )
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
@@ -42,12 +46,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
 
 app.UseCors("BlazorClient");
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
