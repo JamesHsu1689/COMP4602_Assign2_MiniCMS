@@ -1,0 +1,76 @@
+﻿@page "/"
+@using MiniCMS.Client.Models
+@using System.Net.Http.Json
+@inject HttpClient Http
+
+<PageTitle>Home</PageTitle>
+
+<section class="page-section">
+    <header class="page-header">
+        <h1 class="page-title">Articles</h1>
+        <p class="page-subtitle">Browse the latest published content.</p>
+    </header>
+
+    @if (isLoading)
+    {
+        <p class="status-message">Loading articles...</p>
+    }
+    else if (!string.IsNullOrWhiteSpace(errorMessage))
+    {
+        <p class="status-message error-message">@errorMessage</p>
+    }
+    else if (articles.Count == 0)
+    {
+        <p class="status-message">No articles found.</p>
+    }
+    else
+    {
+        <div class="article-list">
+            @foreach (var article in articles)
+            {
+                <article class="article-card">
+                    <h2 class="article-card-title">
+                        <a href="/articles/@article.Id">@article.Title</a>
+                    </h2>
+
+                    <div class="article-meta">
+                        <span>Created: @article.CreatedAt.ToString("g")</span>
+                        <span>Updated: @article.UpdatedAt.ToString("g")</span>
+                    </div>
+                </article>
+            }
+        </div>
+    }
+</section>
+
+@code {
+    private List<ArticleListItemDto> articles = new();
+    private bool isLoading = true;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var response = await Http.GetAsync("api/articles/public");
+
+            if (response.IsSuccessStatusCode)
+            {
+                articles = await response.Content.ReadFromJsonAsync<List<ArticleListItemDto>>()
+                    ?? new List<ArticleListItemDto>();
+            }
+            else
+            {
+                errorMessage = $"Failed to load articles. Status: {(int)response.StatusCode} {response.StatusCode}";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Failed to load articles. {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}

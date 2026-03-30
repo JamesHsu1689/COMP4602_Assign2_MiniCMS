@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ using MiniCMS.Web.Areas.Admin.Models;
 namespace MiniCMS.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Writer")]
     public class ArticlesController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -24,10 +25,21 @@ namespace MiniCMS.Web.Areas.Admin.Controllers
             _sanitizer = sanitizer;
         }
 
+        private string? CurrentUserId => User.FindFirstValue(ClaimTypes.NameIdentifier);
+        private bool IsAdmin => User.IsInRole("Admin");
+
         // GET: /Admin/Articles
         public async Task<IActionResult> Index()
         {
-            var articles = await _db.Articles
+            var query = _db.Articles.AsQueryable();
+
+            if (!IsAdmin)
+            {
+                var userId = CurrentUserId;
+                query = query.Where(a => a.UserId == userId);
+            }
+
+            var articles = await query
                 .OrderByDescending(a => a.UpdatedAt)
                 .ToListAsync();
 
@@ -37,7 +49,15 @@ namespace MiniCMS.Web.Areas.Admin.Controllers
         // GET: /Admin/Articles/Details/{id}
         public async Task<IActionResult> Details(int id)
         {
-            var article = await _db.Articles.FirstOrDefaultAsync(a => a.Id == id);
+            var query = _db.Articles.Where(a => a.Id == id);
+
+            if (!IsAdmin)
+            {
+                var userId = CurrentUserId;
+                query = query.Where(a => a.UserId == userId);
+            }
+
+            var article = await query.FirstOrDefaultAsync();
             if (article == null) return NotFound();
 
             return View(article);
@@ -58,11 +78,13 @@ namespace MiniCMS.Web.Areas.Admin.Controllers
                 return View(vm);
 
             var sanitizedContent = _sanitizer.Sanitize(vm.Content ?? string.Empty);
+            var userId = CurrentUserId;
 
             var article = new Article
             {
                 Title = vm.Title.Trim(),
-                Content = sanitizedContent
+                Content = sanitizedContent,
+                UserId = userId
                 // CreatedAt/UpdatedAt are handled by DbContext SaveChanges override
             };
 
@@ -75,7 +97,15 @@ namespace MiniCMS.Web.Areas.Admin.Controllers
         // GET: /Admin/Articles/Edit/{id}
         public async Task<IActionResult> Edit(int id)
         {
-            var article = await _db.Articles.FirstOrDefaultAsync(a => a.Id == id);
+            var query = _db.Articles.Where(a => a.Id == id);
+
+            if (!IsAdmin)
+            {
+                var userId = CurrentUserId;
+                query = query.Where(a => a.UserId == userId);
+            }
+
+            var article = await query.FirstOrDefaultAsync();
             if (article == null) return NotFound();
 
             var vm = new ArticleEditViewModel
@@ -99,7 +129,15 @@ namespace MiniCMS.Web.Areas.Admin.Controllers
             if (!ModelState.IsValid)
                 return View(vm);
 
-            var article = await _db.Articles.FirstOrDefaultAsync(a => a.Id == id);
+            var query = _db.Articles.Where(a => a.Id == id);
+
+            if (!IsAdmin)
+            {
+                var userId = CurrentUserId;
+                query = query.Where(a => a.UserId == userId);
+            }
+
+            var article = await query.FirstOrDefaultAsync();
             if (article == null) return NotFound();
 
             article.Title = vm.Title.Trim();
@@ -114,7 +152,15 @@ namespace MiniCMS.Web.Areas.Admin.Controllers
         // GET: /Admin/Articles/Delete/{id}
         public async Task<IActionResult> Delete(int id)
         {
-            var article = await _db.Articles.FirstOrDefaultAsync(a => a.Id == id);
+            var query = _db.Articles.Where(a => a.Id == id);
+
+            if (!IsAdmin)
+            {
+                var userId = CurrentUserId;
+                query = query.Where(a => a.UserId == userId);
+            }
+
+            var article = await query.FirstOrDefaultAsync();
             if (article == null) return NotFound();
 
             return View(article);
@@ -125,7 +171,15 @@ namespace MiniCMS.Web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var article = await _db.Articles.FirstOrDefaultAsync(a => a.Id == id);
+            var query = _db.Articles.Where(a => a.Id == id);
+
+            if (!IsAdmin)
+            {
+                var userId = CurrentUserId;
+                query = query.Where(a => a.UserId == userId);
+            }
+
+            var article = await query.FirstOrDefaultAsync();
             if (article == null) return NotFound();
 
             _db.Articles.Remove(article);

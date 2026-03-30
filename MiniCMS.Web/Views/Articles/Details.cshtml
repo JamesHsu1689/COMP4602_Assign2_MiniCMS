@@ -13,18 +13,18 @@
 
     <div class="card shadow-sm">
         <div class="card-body">
-            <h1 class="h3 mb-2">@Model.Title</h1>
+            <h1 class="h3 mb-2">@Model?.Title</h1>
 
             <div class="text-muted mb-3">
-                <div>Created: @Model.CreatedAt.ToString("yyyy-MM-dd HH:mm")</div>
-                <div>Updated: @Model.UpdatedAt.ToString("yyyy-MM-dd HH:mm")</div>
+                <div>Created: @Model?.CreatedAt.ToString("yyyy-MM-dd HH:mm")</div>
+                <div>Updated: @Model?.UpdatedAt.ToString("yyyy-MM-dd HH:mm")</div>
             </div>
 
             <hr />
 
             <!-- Content is stored sanitized server-side; mirror Admin behavior -->
             <div class="article-content">
-                @Html.Raw(Model.Content)
+                @Html.Raw(Model?.Content)
             </div>
         </div>
     </div>

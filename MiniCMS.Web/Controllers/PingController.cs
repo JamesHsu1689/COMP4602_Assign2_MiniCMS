@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MyApp.Namespace
+namespace MiniCMS.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -9,8 +9,5 @@ namespace MyApp.Namespace
     {
         [HttpGet]
         public IActionResult Get() => Ok(new { status = "ok" });
-
-
-
     }
 }

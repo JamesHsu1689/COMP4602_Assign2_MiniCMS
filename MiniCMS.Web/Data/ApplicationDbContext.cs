@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MiniCMS.Web.Models;
@@ -33,6 +34,11 @@ namespace MiniCMS.Web.Data
                 // Timestamps are handled reliably in SaveChanges overrides below.
                 entity.Property(a => a.CreatedAt).IsRequired();
                 entity.Property(a => a.UpdatedAt).IsRequired();
+
+                entity.HasOne(a => a.User)
+                .WithMany()
+                .HasForeignKey(a => a.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
             });
         }
 

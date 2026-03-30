@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Software Projects\\Dotnet Projects\\COMP4602_Assign1_MiniCMS\\MiniCMS.Web\\MiniCMS.Web.csproj": {}
+    "C:\\Users\\lllen\\OneDrive\\Desktop\\COMP4602\\COMP4602_Assign1_MiniCMS\\MiniCMS.Web\\MiniCMS.Web.csproj": {}
   },
   "projects": {
-    "D:\\Software Projects\\Dotnet Projects\\COMP4602_Assign1_MiniCMS\\MiniCMS.Web\\MiniCMS.Web.csproj": {
+    "C:\\Users\\lllen\\OneDrive\\Desktop\\COMP4602\\COMP4602_Assign1_MiniCMS\\MiniCMS.Web\\MiniCMS.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Software Projects\\Dotnet Projects\\COMP4602_Assign1_MiniCMS\\MiniCMS.Web\\MiniCMS.Web.csproj",
+        "projectUniqueName": "C:\\Users\\lllen\\OneDrive\\Desktop\\COMP4602\\COMP4602_Assign1_MiniCMS\\MiniCMS.Web\\MiniCMS.Web.csproj",
         "projectName": "MiniCMS.Web",
-        "projectPath": "D:\\Software Projects\\Dotnet Projects\\COMP4602_Assign1_MiniCMS\\MiniCMS.Web\\MiniCMS.Web.csproj",
+        "projectPath": "C:\\Users\\lllen\\OneDrive\\Desktop\\COMP4602\\COMP4602_Assign1_MiniCMS\\MiniCMS.Web\\MiniCMS.Web.csproj",
         "packagesPath": "C:\\Users\\lllen\\.nuget\\packages\\",
-        "outputPath": "D:\\Software Projects\\Dotnet Projects\\COMP4602_Assign1_MiniCMS\\MiniCMS.Web\\obj\\",
+        "outputPath": "C:\\Users\\lllen\\OneDrive\\Desktop\\COMP4602\\COMP4602_Assign1_MiniCMS\\MiniCMS.Web\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -68,7 +68,7 @@
               "target": "Package",
               "version": "[10.0.3, )"
             },
-            "Microsoft.EntityFrameworkCore.Sqlite": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[10.0.3, )"
             },
@@ -106,7 +106,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.104/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

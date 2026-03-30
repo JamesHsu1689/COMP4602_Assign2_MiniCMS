@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace MiniCMS.Web.Models
 {
@@ -17,5 +18,8 @@ namespace MiniCMS.Web.Models
 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+
+        public string? UserId { get; set; }
+        public IdentityUser? User { get; set; }
     }
 }

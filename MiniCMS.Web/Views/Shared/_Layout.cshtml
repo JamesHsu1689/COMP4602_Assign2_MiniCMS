@@ -27,15 +27,37 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/Admin">Admin</a>
+                            </li>
+                        }
+
+                        @if (User.IsInRole("Writer"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Articles" asp-action="Index">My Articles</a>
+                            </li>
+                        }
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Admin">Admin</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Articles" asp-action="Index">Articles</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Articles" asp-action="Index">Articles</a>
                         </li>
                     </ul>
 
-                    <!-- Right side (Login / Logout) -->
+                    @* <!-- Right side -->
+                    <ul class="navbar-nav">
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <span class="nav-link text-dark">Hello, @User.Identity.Name!</span>
+                            </li>
+                        }
+                    </ul> *@
+
+                    <!-- Login / Logout -->
                     <partial name="_LoginPartial" />
                 </div>
             </div>

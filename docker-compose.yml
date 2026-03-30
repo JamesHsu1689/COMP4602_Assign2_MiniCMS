@@ -1,0 +1,16 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: minicms-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+      MSSQL_SA_PASSWORD: "MiniCMS_Assignment2_StrongP@ss1"
+    ports:
+      - "14333:1433"
+    volumes:
+      - minicms_sqlserver_data:/var/opt/mssql
+    restart: unless-stopped
+
+volumes:
+  minicms_sqlserver_data:
